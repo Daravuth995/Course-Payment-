@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ការចុះឈ្មោះវគ្គសិក្សា | Course Enrollment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background and particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 15s infinite linear;
+        }
+
+        .light-streak {
+            position: absolute;
+            height: 150%;
+            width: 50px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: streakAnimation 20s infinite linear;
+            pointer-events: none;
+        }
+
+        /* Main container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header section */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Course options section */
+        .course-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff0055, #ff9900, #00b4db);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .course-title {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .course-title::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #ff0055, #ff9900);
+            transition: width 0.3s ease;
+        }
+
+        .course-card:hover .course-title::after {
+            width: 100%;
+        }
+
+        .course-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .course-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            animation: priceGlow 2s infinite alternate;
+            position: relative;
+        }
+
+        .course-price::after {
+            content: '/ខែ';
+            font-size: 1rem;
+            margin-left: 5px;
+            opacity: 0.8;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .course-features li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover .course-features li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .course-features li:nth-child(1) { transition-delay: 0.1s; }
+        .course-features li:nth-child(2) { transition-delay: 0.2s; }
+        .course-features li:nth-child(3) { transition-delay: 0.3s; }
+        .course-features li:nth-child(4) { transition-delay: 0.4s; }
+
+        .course-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ffaa;
+            font-weight: bold;
+        }
+
+        .select-course-btn {
+            background: linear-gradient(135deg, #ff0055, #ff9900);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .select-course-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .select-course-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        /* Recommended badge */
+        .recommended-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #ff0055, #ff9900);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(10deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+
+        /* Package savings */
+        .package-savings {
+            background: linear-gradient(135deg, rgba(0, 255, 170, 0.2), rgba(0, 180, 219, 0.2));
+            padding: 8px;
+            border-radius: 10px;
+            margin-top: 10px;
+            color: #00ffaa;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Enrollment meter */
+        .enrollment-meter {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .meter-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0055, #ff9900);
+            border-radius: 5px;
+            width: 65%;
+            animation: fillWidth 2s ease-out;
+        }
+
+        /* Special offer */
+        .special-offer {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.2), rgba(255, 153, 0, 0.2));
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+            font-weight: 600;
+            animation: glow 2s infinite alternate;
+        }
+
+        /* Toast message */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast a {
+            color: #00b4db;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Payment modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .payment-modal {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .payment-modal {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .payment-modal.aba-modal {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.15), rgba(255, 153, 0, 0.15));
+        }
+
+        .payment-modal.acleda-modal {
+            background: linear-gradient(135deg, rgba(0, 180, 219, 0.15), rgba(0, 131, 176, 0.15));
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .payment-modal h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .selected-course-info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .selected-course-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .payment-info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .payment-info .highlight {
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .payment-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .payment-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .aba-pay-btn {
+            background: linear-gradient(135deg, #ff0055, #ff9900);
+        }
+
+        .acleda-pay-btn {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animations */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes priceGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); }
+            100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.9), 0 0 30px rgba(0, 255, 255, 0.5); }
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(10deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.05); }
+            100% { transform: rotate(10deg) scale(1); }
+        }
+
+        @keyframes streakAnimation {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fillWidth {
+            from { width: 0%; }
+            to { width: 65%; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(255, 105, 180, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.7); }
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .course-options {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .course-card {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .payment-buttons {
+                flex-direction: row;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .glass-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .course-price {
+                font-size: 1.8rem;
+            }
+            
+            .course-title {
+                font-size: 1.3rem;
+            }
+            
+            .payment-modal {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .course-price {
+                font-size: 1.6rem;
+            }
+            
+            .course-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background elements -->
+    <div class="particles" id="particles"></div>
+    <div class="light-streak" style="left: 10%; animation-delay: -5s;"></div>
+    <div class="light-streak" style="left: 30%; animation-delay: -10s;"></div>
+    <div class="light-streak" style="left: 60%; animation-delay: -15s;"></div>
+    <div class="light-streak" style="left: 85%; animation-delay: -8s;"></div>
+
+    <div class="container">
+        <div class="glass-card">
+            <!-- Header -->
+            <div class="header">
+                <h1>ជ្រើសរើសវិធីសិក្សាដែលសមស្របជាមួយអ្នក</h1>
+                <p>Choose the Learning Method That's Right for You</p>
+            </div>
+
+            <!-- Enrollment Meter -->
+            <div class="enrollment-meter">
+                <p>សិស្សានុសិស្សចុះឈ្មោះថ្ងៃនេះ: <strong>១២/២០</strong></p>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+                <p>ចុះឈ្មោះឥឡូវនេះដើម្បីកុំឲ្យខកខាន!</p>
+            </div>
+
+            <!-- Special Offer -->
+            <div class="special-offer">
+                <p>ចុះឈ្មោះក្នុងសប្តាហ៍នេះ សន្សំ $2!</p>
+            </div>
+
+            <!-- Course Options -->
+            <div class="course-options">
+                <!-- App Learning -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="course-title">សិក្សាតាមរយៈ App</h3>
+                    <p class="course-description">រៀនតាមល្បឿនរបស់អ្នកដោយប្រើកម្មវិធីរបស់យើង</p>
+                    <div class="course-price">$8</div>
+                    <ul class="course-features">
+                        <li>ចូលប្រើប្រាស់ App គ្រប់ពេលវេលា</li>
+                        <li>មេរៀនវីដេអូដែលអាចទាញយកបាន</li>
+                        <li>លំហាត់ប្រភេទសំណួរ</li>
+                        <li>ពិនិត្យវឌ្ឍនភាពផ្ទាល់ខ្លួន</li>
+                    </ul>
+                    <button class="select-course-btn" onclick="selectCourse('app', 8)">ជ្រើសរើស</button>
+                </div>
+
+                <!-- Live Teacher -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="course-title">សិក្សាផ្ទាល់ជាមួយគ្រូ</h3>
+                    <p class="course-description">ទទួលបានការណែនាំផ្ទាល់ពីគ្រូដែលមានបទពិសោធន៍</p>
+                    <div class="course-price">$16</div>
+                    <ul class="course-features">
+                        <li>ថ្នាក់រៀនផ្ទាល់តាមអនឡាញ</li>
+                        <li>អន្តរកម្មផ្ទាល់ជាមួយគ្រូ</li>
+                        <li>ការត្រួតពិនិត្យ និងដោះស្រាយសំណួរ</li>
+                        <li>ការប្រឡង និងការវាយតម្លៃ</li>
+                    </ul>
+                    <button class="select-course-btn" onclick="selectCourse('live', 16)">ជ្រើសរើស</button>
+                </div>
+
+                <!-- Package -->
+                <div class="course-card">
+                    <div class="recommended-badge">ផែកកេជ្ជសម្របសម្រួលបំផុត</div>
+                    <div class="course-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="course-title">កញ្ចប់ App + គ្រូផ្ទាល់</h3>
+                    <p class="course-description">ទទួលបានអត្ថប្រយោជន៍ទាំងពីរពីការសិក្សាតាម App និងជាមួយគ្រូ</p>
+                    <div class="course-price">$18</div>
+                    <div class="package-savings">សន្សំ $6 ពីការទិញឡើងវិញ!</div>
+                    <ul class="course-features">
+                        <li>មុខងារទាំងអស់ពីកម្មវិធី App</li>
+                        <li>មុខងារទាំងអស់ពីថ្នាក់រៀនផ្ទាល់</li>
+                        <li>ឯកសារបន្ថែមពិសេស</li>
+                        <li>ការគាំទ្រតាមរយៈសារអេឡិចត្រូនិក</li>
+                    </ul>
+                    <button class="select-course-btn" onclick="selectCourse('package', 18)">ជ្រើសរើស</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Message -->
+    <div class="toast" id="toast">
+        <p id="toast-message"></p>
+        <a href="#" id="toast-link" target="_blank" style="display: none;"></a>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="payment-modal">
+            <div class="close-btn" onclick="closeModal('payment-modal')">
+                <i class="fas fa-times"></i>
+            </div>
+            <h3>បញ្ចប់ការចុះឈ្មោះរបស់អ្នក</h3>
+            
+            <div class="selected-course-info">
+                <p id="selected-course-name">កញ្ចប់ App + គ្រូផ្ទាល់</p>
+                <p id="selected-course-price">$18<small>/ខែ</small></p>
+            </div>
+            
+            <div class="payment-info">
+                <p>ដើម្បីបញ្ចប់ការចុះឈ្មោះ សូមបង់ថ្លៃសិក្សាតាមរយៈ៖</p>
+            </div>
+            
+            <div class="payment-buttons">
+                <button class="payment-btn aba-pay-btn" onclick="showBankDetails('aba')">
+                    <i class="fas fa-mobile-alt"></i> ABA Pay
+                </button>
+                <button class="payment-btn acleda-pay-btn" onclick="showBankDetails('acleda')">
+                    <i class="fas fa-university"></i> Acleda Bank
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA Payment Details Modal -->
+    <div class="modal-overlay" id="aba-modal">
+        <div class="payment-modal aba-modal">
+            <div class="close-btn" onclick="closeModal('aba-modal')">
+                <i class="fas fa-times"></i>
+            </div>
+            <h3>ABA Payment Details</h3>
+            
+            <div class="selected-course-info">
+                <p id="aba-course-name">កញ្ចប់ App + គ្រូផ្ទាល់</p>
+                <p id="aba-course-price">$18<small>/ខែ</small></p>
+            </div>
+            
+            <div class="payment-info">
+                <p>Account-holder name: <span class="highlight">YON DARAVUTH</span></p>
+                <p>Account number: <span class="highlight">000 421 709</span></p>
+                <p>Amount: <span class="highlight" id="aba-amount">$18.00</span></p>
+            </div>
+            <a href="https://link.payway.com.kh/ABAPAYZL380244d" target="_blank" class="payment-btn aba-pay-btn" style="display: block; text-decoration: none;">
+                <i class="fas fa-external-link-alt"></i> បង់ប្រាក់អីលូវនេះ
+            </a>
+            <button class="back-btn" onclick="backToPayment()">
+                <i class="fas fa-arrow-left"></i> ត្រឡប់ក្រោយ
+            </button>
+        </div>
+    </div>
+
+    <!-- Acleda Payment Details Modal -->
+    <div class="modal-overlay" id="acleda-modal">
+        <div class="payment-modal acleda-modal">
+            <div class="close-btn" onclick="closeModal('acleda-modal')">
+                <i class="fas fa-times"></i>
+            </div>
+            <h3>Acleda Bank Payment Details</h3>
+            
+            <div class="selected-course-info">
+                <p id="acleda-course-name">កញ្ចប់ App + គ្រូផ្ទាល់</p>
+                <p id="acleda-course-price">$18<small>/ខែ</small></p>
+            </div>
+            
+            <div class="payment-info">
+                <p>Name: <span class="highlight">Yon Daravuth</span></p>
+                <p>Scan the KHQR code or use the payment link below</p>
+            </div>
+            <a href="https://acledabank.com.kh/acleda?payment_data=qWY5B2SAUfIhLblxzOtfux3xJRdAPs8G9Uek1toYoIT4SJ+zW1Q8s+pwtXW1GrJbunswH0+SmjlEIK++PSlHOIQlqLf1TrLsGCsT93djOS5/Q3azDDJ+waiN3jHG/dpc9yMD4T1Yo86RF8b2M63jt8HJtIPaiDulUgqc+RGMCG/iLs1dIC1XWeldkNRT0iluxD31M19bRop7UPMVQsD1F0miTrIEfo9u9541FkjCEuHlZR26WLBTTvgIYpKFt2MjnJRrw5m+2B4MEGwO95v/iA==&key=khqr" target="_blank" class="payment-btn acleda-pay-btn" style="display: block; text-decoration: none;">
+                <i class="fas fa-external-link-alt"></i> បង់ប្រាក់អីលូវនេះ
+            </a>
+            <button class="back-btn" onclick="backToPayment()">
+                <i class="fas fa-arrow-left"></i> ត្រឡប់ក្រោយ
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size, position, and animation delay
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const animationDelay = Math.random() * 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `-${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Create ripple effect on buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+            
+            const ripple = button.getElementsByClassName("ripple")[0];
+            
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+        }
+        
+        // Add ripple effect to all buttons
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(button => {
+            button.addEventListener("click", createRipple);
+        });
+        
+        // Course selection
+        let selectedCourse = {
+            type: 'package',
+            name: 'កញ្ចប់ App + គ្រូផ្ទាល់',
+            price: 18
+        };
+        
+        function selectCourse(type, price) {
+            if (type === 'app') {
+                selectedCourse = {
+                    type: 'app',
+                    name: 'សិក្សាតាមរយៈ App',
+                    price: price
+                };
+                showToast("ប្រព័ន្ធនឹងធ្វើការផ្តល់ជូន Password & ID ដើម្បីចូលប្រើប្រាស់ App សិក្សា!", "https://daravuth995.github.io/classroomportal/");
+            } else if (type === 'live') {
+                selectedCourse = {
+                    type: 'live',
+                    name: 'សិក្សាផ្ទាល់ជាមួយគ្រូ',
+                    price: price
+                };
+                showToast("ប្រព័ន្ធនឹងបញ្ជូនអ្នកទៅកាន់ថ្នាក់រៀន បន្ទាប់ពីបង់ប្រាក់រួចរាល់!");
+            } else {
+                selectedCourse = {
+                    type: 'package',
+                    name: 'កញ្ចប់ App + គ្រូផ្ទាល់',
+                    price: price
+                };
+                showToast("ប្រព័ន្ធនឹងធ្វើការផ្តល់ជូន Password & ID ដើម្បីចូលប្រើប្រាស់ App សិក្សា និងបញ្ជូនអ្នកទៅកាន់ថ្នាក់រៀន!");
+            }
+            
+            // Update modal with selected course
+            document.getElementById('selected-course-name').textContent = selectedCourse.name;
+            document.getElementById('selected-course-price').innerHTML = '$' + selectedCourse.price + '<small>/ខែ</small>';
+            
+            document.getElementById('aba-course-name').textContent = selectedCourse.name;
+            document.getElementById('aba-course-price').innerHTML = '$' + selectedCourse.price + '<small>/ខែ</small>';
+            
+            document.getElementById('acleda-course-name').textContent = selectedCourse.name;
+            document.getElementById('acleda-course-price').innerHTML = '$' + selectedCourse.price + '<small>/ខែ</small>';
+            
+            document.getElementById('aba-amount').textContent = '$' + selectedCourse.price.toFixed(2);
+            
+            // Create confetti effect
+            createConfetti();
+            
+            // Show payment modal after a delay
+            setTimeout(() => {
+                showModal('payment-modal');
+            }, 2000);
+        }
+        
+        // Show toast message
+        function showToast(message, link = null) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastLink = document.getElementById('toast-link');
+            
+            toastMessage.textContent = message;
+            
+            if (link) {
+                toastLink.href = link;
+                toastLink.textContent = "មើលជាមុន: " + link;
+                toastLink.style.display = "block";
+            } else {
+                toastLink.style.display = "none";
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.container');
+            const colors = ['#ff0055', '#ff9900', '#00b4db', '#00ffaa', '#ffffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('particle');
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.position = 'fixed';
+                confetti.style.top = '0';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.zIndex = '1000';
+                confetti.style.animation = `confetti ${Math.random() * 3 + 2}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+        
+        // Show modal
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Accelerate particles toward modal
+            accelerateParticles();
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Show bank details
+        function showBankDetails(bank) {
+            closeModal('payment-modal');
+            
+            if (bank === 'aba') {
+                showModal('aba-modal');
+            } else {
+                showModal('acleda-modal');
+            }
+        }
+        
+        // Back to payment selection
+        function backToPayment() {
+            closeModal('aba-modal');
+            closeModal('acleda-modal');
+            showModal('payment-modal');
+        }
+        
+        // Accelerate particles toward modal
+        function accelerateParticles() {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                particle.style.animationDuration = '1s';
+                setTimeout(() => {
+                    particle.style.animationDuration = '15s';
+                }, 1000);
+            });
+        }
+        
+        // Close modal when clicking outside content
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeModal(overlay.id);
+                }
+            });
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                    if (overlay.classList.contains('active')) {
+                        closeModal(overlay.id);
+                    }
+                });
+            }
+        });
+        
+        // Initialize the page
+        window.onload = function() {
+            createParticles();
+            
+            // Add aria labels for accessibility
+            document.querySelectorAll('button').forEach(button => {
+                button.setAttribute('aria-label', button.textContent);
+            });
+            
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.setAttribute('aria-hidden', 'true');
+            });
+        };
+    </script>
+</body>
+</html>
